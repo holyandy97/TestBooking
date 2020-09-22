@@ -5,18 +5,17 @@ from pages.locators import MainPageLocators
 
 
 class MainPage(BasePage):
-    """
-    Class with methods for Main page(descendant of the BasePage class)
-    """
 
-    def should_add_children(self):
-        """
-        Method with checking that the number of age inputs isn't equal to number of added child's
-        """
+    def add_children(self):
         count_children = random.randint(2, 6)
         self.browser.find_element(*MainPageLocators.GUESTS_COUNTER_FIELD).click()
         for _ in range(count_children):
             self.browser.find_element(*MainPageLocators.ADD_CHILD_BTN).click()
 
-        ages_inputs = self.browser.find_elements(*MainPageLocators.AGE_DROP_DOWN)
-        assert len(ages_inputs) == count_children, "The number of age inputs isn't equal to number of added child's"
+        input_fields = self.browser.find_elements(*MainPageLocators.AGE_DROP_DOWN)
+        assert len(input_fields) == count_children, "The number of age inputs isn't equal to number of added children"
+
+    def choose_city(self):
+        self.browser.find_element(*MainPageLocators.FIELD).click()
+        self.browser.find_element(*MainPageLocators.CITY_FIELD).click()
+        self.browser.find_element(*MainPageLocators.SEARCH_BTN).click()
